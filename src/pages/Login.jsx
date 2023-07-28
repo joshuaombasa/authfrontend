@@ -12,8 +12,7 @@ export default function Login() {
     },[])
 
     const [formData, setFormData] = React.useState({
-        firstname: '',
-        laststname: '',
+        
         email: '',
         password: ''
     })
@@ -32,17 +31,18 @@ export default function Login() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        fetch('http://localhost:3000/login', {
+        fetch('http://localhost:4000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json'
                 },
             body: JSON.stringify(formData)
         })
-            .then(res => res.json)
+            .then(res => res.json())
             .then(data => console.log(data))
 
         setFormData({
@@ -56,7 +56,7 @@ export default function Login() {
     return (
         <div className="login--container">
              <h1>Login :</h1>
-            <form action="" className="login--form">
+            <form onSubmit={handleSubmit} className="login--form">
                 <label htmlFor="email">Email:</label>
                 <input
                     type="email"
