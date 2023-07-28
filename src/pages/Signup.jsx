@@ -3,6 +3,8 @@ import React from "react";
 export default function SignUp() {
 
     const [formData, setFormData] = React.useState({
+        firstname: '',
+        laststname: '',
         email: '',
         password: ''
     })
@@ -32,6 +34,8 @@ export default function SignUp() {
             .then(data => console.log(data))
 
         setFormData({
+            firstname: '',
+            laststname: '',
             email: '',
             password: ''
         })
