@@ -1,6 +1,9 @@
 import React from "react";
+import UseTokenAuth from "../hooks/UseAuthToken";
 
 export default function SignUp() {
+
+    // const { getToken, saveToken, clearToken } = UseTokenAuth()
 
     const [formData, setFormData] = React.useState({
         firstname: '',
@@ -30,8 +33,12 @@ export default function SignUp() {
             },
             body: JSON.stringify(formData)
         })
-            .then(res => res.json)
-            .then(data => console.log(data))
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                const jwtToken = data.token
+                localStorage.setItem('jwtToken', jwtToken)
+            })
 
         setFormData({
             firstname: '',
