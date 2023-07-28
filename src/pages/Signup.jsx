@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function SignUp () {
+export default function SignUp() {
 
     const [formData, setFormData] = React.useState({
-        firstname : '',
-        laststname : '',
-        email : '',
-        password : ''
+        firstname: '',
+        laststname: '',
+        email: '',
+        password: ''
     })
 
     function handleChange(event) {
@@ -15,7 +15,7 @@ export default function SignUp () {
         setFormData((prevFormData) => {
             return {
                 ...prevFormData,
-                [name] : value
+                [name]: value
             }
         })
     }
@@ -23,49 +23,64 @@ export default function SignUp () {
     function handleSubmit(event) {
         event.preventDefault()
 
-        console.log(formData)
+        fetch('http://localhost:3000/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(res => res.json)
+            .then(data => console.log(data))
+
+        setFormData({
+            firstname: '',
+            laststname: '',
+            email: '',
+            password: ''
+        })
     }
 
-   
+
 
     return (
         <div className="signup--container">
             <form onSubmit={handleSubmit} className="signup--form">
                 <label htmlFor="firstname">Firstname:</label>
-                <input 
-                      type="text" 
-                      className="firstname"  
-                      id="firstname" 
-                      name="firstname"
-                      value={formData.firstname}
-                      onChange={handleChange}
+                <input
+                    type="text"
+                    className="firstname"
+                    id="firstname"
+                    name="firstname"
+                    value={formData.firstname}
+                    onChange={handleChange}
                 />
                 <label htmlFor="lastname">Lastname:</label>
-                <input 
-                      type="text" 
-                      className="laststname" 
-                      id="laststname" 
-                      name="laststname"
-                      value={formData.laststname}
-                      onChange={handleChange}
+                <input
+                    type="text"
+                    className="laststname"
+                    id="laststname"
+                    name="laststname"
+                    value={formData.laststname}
+                    onChange={handleChange}
                 />
-                 <label htmlFor="email">Email:</label>
-                <input 
-                      type="email" 
-                      className="email"  
-                      id="email" 
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
+                <label htmlFor="email">Email:</label>
+                <input
+                    type="email"
+                    className="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
                 />
                 <label htmlFor="password" >Password:</label>
-                <input 
-                      type="password" 
-                      className="password" 
-                      id="password" 
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
+                <input
+                    type="password"
+                    className="password"
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
                 />
                 <button className="submit--btn">Submit</button>
             </form>
