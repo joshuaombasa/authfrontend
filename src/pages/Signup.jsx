@@ -26,7 +26,7 @@ export default function SignUp() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        fetch('http://localhost:3000/signup', {
+        fetch('http://localhost:4000/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -37,6 +37,7 @@ export default function SignUp() {
             .then(data => {
                 console.log(data)
                 const jwtToken = data.token
+                localStorage.clear();
                 localStorage.setItem('jwtToken', jwtToken)
             })
 
