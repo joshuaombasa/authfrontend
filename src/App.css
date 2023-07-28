@@ -1,0 +1,49 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+* {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.signup--container {
+  min-height: 70vh;
+  width: 50%; 
+  border:  1px solid black;
+  margin: auto auto;
+  padding: 2em;
+}
+
+/* .signup--form {
+  width: 100%;
+} */
+
+label, input {
+  display: block;
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+label {
+  margin-bottom: 1em;
+}
+
+input {
+  margin-bottom: 1em;
+}
+
+input {
+  padding: 0.5em 1em;
+}
+
+.submit--btn {
+  display: block;
+  width: 100%;
+  padding: 0.5em 1em;
+  border: none;
+  color: white;
+  background-color: slateblue;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
