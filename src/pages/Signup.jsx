@@ -3,8 +3,6 @@ import React from "react";
 export default function SignUp() {
 
     const [formData, setFormData] = React.useState({
-        firstname: '',
-        laststname: '',
         email: '',
         password: ''
     })
@@ -34,8 +32,6 @@ export default function SignUp() {
             .then(data => console.log(data))
 
         setFormData({
-            firstname: '',
-            laststname: '',
             email: '',
             password: ''
         })
@@ -45,6 +41,7 @@ export default function SignUp() {
 
     return (
         <div className="signup--container">
+            <h1>Sign up :</h1>
             <form onSubmit={handleSubmit} className="signup--form">
                 <label htmlFor="firstname">Firstname:</label>
                 <input
