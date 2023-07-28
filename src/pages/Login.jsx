@@ -1,6 +1,15 @@
 import React from "react";
+import UseTokenAuth from "../hooks/UseAuthToken";
+
 
 export default function Login() {
+
+    const [token, setToken] = React.useState(null)
+
+    // const { getToken, saveToken, clearToken } = UseTokenAuth()
+    React.useEffect(() => {
+        setToken(localStorage.getItem('jwtToken'))
+    },[])
 
     const [formData, setFormData] = React.useState({
         firstname: '',
@@ -23,11 +32,14 @@ export default function Login() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        fetch('http://localhost:3000/signup', {
+        fetch('http://localhost:3000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
+            headers: {
+                Authorization: `Bearer ${token}`
+                },
             body: JSON.stringify(formData)
         })
             .then(res => res.json)
@@ -38,6 +50,8 @@ export default function Login() {
             password: ''
         })
     }
+
+
 
     return (
         <div className="login--container">
