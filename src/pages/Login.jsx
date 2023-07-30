@@ -4,12 +4,12 @@ import UseTokenAuth from "../hooks/UseAuthToken";
 
 export default function Login() {
 
-    const [token, setToken] = React.useState(null)
+    // const [token, setToken] = React.useState(null)
 
     // const { getToken, saveToken, clearToken } = UseTokenAuth()
-    React.useEffect(() => {
-        setToken(localStorage.getItem('jwtToken'))
-    },[])
+    // React.useEffect(() => {
+    //     setToken(localStorage.getItem('jwtToken'))
+    // },[])
 
     const [formData, setFormData] = React.useState({
         
@@ -31,13 +31,12 @@ export default function Login() {
     function handleSubmit(event) {
         event.preventDefault()
 
+        const token = localStorage.getItem('jwtToken')
+
         fetch('http://localhost:4000/login', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
-            },
-            headers: {
-                Authorization: `Bearer ${token}`,
+                Authorization: `${token}`,
                 'Content-Type': 'application/json'
                 },
             body: JSON.stringify(formData)
@@ -51,7 +50,7 @@ export default function Login() {
         })
     }
 
-
+  
 
     return (
         <div className="login--container">
