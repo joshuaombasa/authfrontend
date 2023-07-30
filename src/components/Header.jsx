@@ -8,6 +8,7 @@ export default function Header() {
             <div className="c">
                 <Link to='login' className="login--link">Login</Link>
                 <Link to='signup' className="singup--link">Sign up</Link>
+                <Link to='admin' className="singup--link">Admin</Link>
             </div>
         </div>
     )
