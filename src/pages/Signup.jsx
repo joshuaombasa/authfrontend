@@ -37,7 +37,7 @@ export default function SignUp() {
             .then(data => {
                 console.log(data)
                 const jwtToken = data.token
-                localStorage.clear();
+                // localStorage.clear();
                 localStorage.setItem('jwtToken', jwtToken)
             })
 
