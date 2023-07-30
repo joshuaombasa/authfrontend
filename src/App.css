@@ -11,7 +11,7 @@ body {
   margin: 0;
 }
 
-.signup--container, .login--container {
+.signup--container, .login--container, .admin--container {
   min-height: 70vh;
   width: 90%; 
   /* border:  1px solid black; */
