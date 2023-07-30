@@ -4,13 +4,6 @@ import UseTokenAuth from "../hooks/UseAuthToken";
 
 export default function Login() {
 
-    // const [token, setToken] = React.useState(null)
-
-    // const { getToken, saveToken, clearToken } = UseTokenAuth()
-    // React.useEffect(() => {
-    //     setToken(localStorage.getItem('jwtToken'))
-    // },[])
-
     const [formData, setFormData] = React.useState({
         
         email: '',
@@ -42,7 +35,10 @@ export default function Login() {
             body: JSON.stringify(formData)
         })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => {
+                localStorage.setItem('jwtToken', data.token)
+                console.log(data)
+            })
 
         setFormData({
             email: '',
