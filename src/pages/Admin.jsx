@@ -1,15 +1,38 @@
 import React from "react";
+import AdminHero from "../components/AdminHero";
 
-export default function  Admin() {
+import Login from "./Login";
 
-    const [isAuthenticated, setIsAuthenticated] = React.useState(localStorage.getItem(localStorage.getItem('jwtToken')))
+export default function Admin() {
 
-    if (isAuthenticated) {
-        
-    }
+    const [isAuthenticated, setIsAuthenticated] = React.useState(localStorage.getItem('jwtToken'))
+
+    const [userData, setUserData] = React.useState(null)
+
+    React.useEffect (() => {
+        if (isAuthenticated) {
+            const token = localStorage.getItem('jwtToken')
+            fetch('http://localhost:4000/admin', {
+                method: 'GET',
+                headers: {
+                    Authorization: `${token}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                    setUserData(data)
+                })
+        }
+    },[])
+
+
+
+   
     return (
-        <div className="admin--container">
-            <h1>Welcome admin:</h1>
-        </div>
+        <>
+        {isAuthenticated ? <AdminHero/> : <Login />}    
+        </>
+
     )
 }
