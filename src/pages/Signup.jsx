@@ -26,26 +26,36 @@ export default function SignUp() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        fetch('http://localhost:4000/signup', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(res => res.json())
-            .then(data => {
+        const signUpUser = async () => {
+            try {
+                const res = await fetch('http://localhost:4000/signup', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(formData)
+                            })
+
+                const data = await res.json()
                 console.log(data)
                 const jwtToken = data.token
                 localStorage.setItem('jwtToken', jwtToken)
-            })
 
-        setFormData({
-            firstname: '',
-            laststname: '',
-            email: '',
-            password: ''
-        })
+                setFormData({
+                    firstname: '',
+                    laststname: '',
+                    email: '',
+                    password: ''
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        signUpUser()
+
+      
     }
 
 
