@@ -5,12 +5,12 @@ import Login from "./Login";
 
 export default function Admin() {
 
-    const [isAuthenticated, setIsAuthenticated] = React.useState(localStorage.getItem('jwtToken'))
+    const [isTokenAvailable, setIsTokenAvailable] = React.useState(localStorage.getItem('jwtToken'))
 
-    const [userData, setUserData] = React.useState(null)
+    const [isValidUser, setIsValidUser] = React.useState(null)
 
     React.useEffect (() => {
-        if (isAuthenticated) {
+        if (isTokenAvailable) {
             const token = localStorage.getItem('jwtToken')
             fetch('http://localhost:4000/admin', {
                 method: 'GET',
@@ -18,20 +18,37 @@ export default function Admin() {
                     Authorization: `${token}`
                 }
             })
-                .then(res => res.json())
+                .then(res =>  { 
+                    updateValidUser(res.ok)
+                   return res.json()
+                })
                 .then(data => {
                     console.log(data)
-                    setUserData(data)
                 })
         }
     },[])
 
+    function updateValidUser(OkState) {
+        if (OkState === true) {
+            setIsValidUser(true)
+        }
+        
+    }
 
+    function displayLogic() {
+        if (!isTokenAvailable) {
+            return <Login/>
+        } else if (isValidUser) {
+           return <AdminHero/>
+        } else if (!isValidUser) {
+            return <Login/>
+        }
+    }
 
    
     return (
         <>
-        {isAuthenticated ? <AdminHero/> : <Login />}    
+        { displayLogic()}    
         </>
 
     )
