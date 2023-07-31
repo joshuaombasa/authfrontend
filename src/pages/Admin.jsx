@@ -12,21 +12,30 @@ export default function Admin() {
     React.useEffect (() => {
         if (isTokenAvailable) {
             const token = localStorage.getItem('jwtToken')
-            fetch('http://localhost:4000/admin', {
-                method: 'GET',
-                headers: {
-                    Authorization: `${token}`
+
+            const checkAuth = async() => {
+                try {
+
+                    const res = await fetch('http://localhost:4000/admin', {
+                                           method: 'GET',
+                                           headers: {
+                                               Authorization: `${token}`
+                                              }
+                                        })
+                const data = await res.json()
+                updateValidUser(res.ok)
+                console.log(data)
+
+                } catch(error) {
+                    
+                    console.log(error)
                 }
-            })
-                .then(res =>  { 
-                    updateValidUser(res.ok)
-                   return res.json()
-                })
-                .then(data => {
-                    console.log(data)
-                })
+
+            }
+
+            checkAuth()
         }
-    },[])
+    }, [])
 
     function updateValidUser(OkState) {
         if (OkState === true) {
